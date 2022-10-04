@@ -20,6 +20,8 @@ public class StateHandler : MonoBehaviour
     public GameObject objectToPlace;
     public Camera gameCamera;
 
+    public int hoveringOver=0;
+
     public Text infoText;
     // Start is called before the first frame update
     void Start()
@@ -48,9 +50,9 @@ public class StateHandler : MonoBehaviour
                 float p=positions[i].position;
 
                 p+=speed*positions[i].direction;
-                if (p>=1) positions[i].direction=-positions[i].direction;
+                if (p>=1 && hoveringOver!=i) positions[i].direction=-positions[i].direction;
                 if (p<0) positions[i].direction=0;
-                p=Mathf.Clamp(p,0,MaxHeight);
+                p=Mathf.Clamp(p,0,1);
                 positions[i].position=p;
                 Vector3 lp=t[i].transform.position;
 
@@ -75,13 +77,41 @@ public class StateHandler : MonoBehaviour
             objectToPlace.SetActive(true);
             objectToPlace.transform.position=hitInfo.point;
 
+            HighlightState(FindStateByName(hitInfo.collider.gameObject.name));
+
             //objectToPlace.transform.rotation=Quaternion.FromToRotation(Vector3.up,hitInfo.normal);
         }
         else
         {
             objectToPlace.SetActive(false);
             infoText.text="";
+            hoveringOver=0;
         }
 
+    }
+
+    int FindStateByName(string name)
+    {
+        for (int i = 1; i < t.Length; i++)
+        {
+            if (positions[i].Name==name)    
+            {
+                return i;
+            }
+        }    
+        return 0;
+    }
+
+    void HighlightState(int state)
+    {
+        if (state!=0)
+        {
+            if (positions[state].direction==0)
+            {
+                hoveringOver=state;
+                positions[state].direction=1;
+            }
+        }
+        
     }
 }
