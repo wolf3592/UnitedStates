@@ -688,7 +688,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.3, y: 25, z: 0}
+  m_LocalPosition: {x: -0.65, y: 25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -810,7 +810,7 @@ GameObject:
   - component: {fileID: 7364075740761051677}
   m_Layer: 8
   m_Name: Maryland
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -928,7 +928,7 @@ GameObject:
   - component: {fileID: 5134894054931131228}
   m_Layer: 8
   m_Name: Arkansas
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -947,7 +947,7 @@ GameObject:
   - component: {fileID: 2824880722563456796}
   m_Layer: 8
   m_Name: Massachusetts
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1031,7 +1031,7 @@ GameObject:
   - component: {fileID: 8471406309532332622}
   m_Layer: 8
   m_Name: Utah
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1058,7 +1058,7 @@ GameObject:
   - component: {fileID: 4111386695875028005}
   m_Layer: 8
   m_Name: Michigan
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1077,7 +1077,7 @@ GameObject:
   - component: {fileID: 4318939936890072352}
   m_Layer: 8
   m_Name: Iowa
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1096,7 +1096,7 @@ GameObject:
   - component: {fileID: 4597605233728067631}
   m_Layer: 8
   m_Name: New_York
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1321,7 +1321,7 @@ GameObject:
   - component: {fileID: 7987657394752603763}
   m_Layer: 8
   m_Name: Rhode_Island
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1348,7 +1348,7 @@ GameObject:
   - component: {fileID: 4784674152340224594}
   m_Layer: 8
   m_Name: Indiana
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1367,7 +1367,7 @@ GameObject:
   - component: {fileID: 4853994118855838807}
   m_Layer: 8
   m_Name: Illinois
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1401,7 +1401,7 @@ GameObject:
   - component: {fileID: 8250040460966112352}
   m_Layer: 8
   m_Name: Virginia
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1420,7 +1420,7 @@ GameObject:
   - component: {fileID: 5643515025236473987}
   m_Layer: 8
   m_Name: West_Virginia
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1439,7 +1439,7 @@ GameObject:
   - component: {fileID: 6627215611369916221}
   m_Layer: 8
   m_Name: Idaho
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1662,7 +1662,7 @@ GameObject:
   - component: {fileID: 7785780350740913724}
   m_Layer: 8
   m_Name: Minnesota
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1697,7 +1697,7 @@ GameObject:
   - component: {fileID: 7597179941416977993}
   m_Layer: 8
   m_Name: Oklahoma
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1716,7 +1716,7 @@ GameObject:
   - component: {fileID: 9046292240818214054}
   m_Layer: 8
   m_Name: New_Mexico
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1735,7 +1735,7 @@ GameObject:
   - component: {fileID: 6661741957369500505}
   m_Layer: 8
   m_Name: Oregon
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1880,7 +1880,7 @@ GameObject:
   - component: {fileID: 7950241672299650266}
   m_Layer: 8
   m_Name: South_Dakota
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2084,7 +2084,7 @@ GameObject:
   - component: {fileID: 4096643974701901183}
   m_Layer: 8
   m_Name: Ohio
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2494,7 +2494,7 @@ GameObject:
   - component: {fileID: 7222399900182926835}
   m_Layer: 8
   m_Name: Arizona
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2524,6 +2524,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2644993999206144543}
   - component: {fileID: 3458545349441388710}
+  - component: {fileID: 3458545349441388711}
   m_Layer: 8
   m_Name: states
   m_TagString: Untagged
@@ -2538,7 +2539,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3458545349441388709}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eadecb4fbf0c3b373a8d1e7ae6e97661, type: 3}
   m_Name: 
@@ -2549,6 +2550,18 @@ MonoBehaviour:
   gameCamera: {fileID: 963194227}
   hoveringOver: 0
   infoText: {fileID: 149596781}
+--- !u!114 &3458545349441388711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3458545349441388709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5c442f285cb50988a29af84e9d0d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3478926106508450739
 Transform:
   m_ObjectHideFlags: 0
@@ -2666,7 +2679,7 @@ GameObject:
   - component: {fileID: 8495145098883303268}
   m_Layer: 8
   m_Name: Kentucky
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2773,7 +2786,7 @@ GameObject:
   - component: {fileID: 4604150005791084816}
   m_Layer: 8
   m_Name: Mississippi
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2792,7 +2805,7 @@ GameObject:
   - component: {fileID: 8339576028223109064}
   m_Layer: 8
   m_Name: Louisiana
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2826,7 +2839,7 @@ GameObject:
   - component: {fileID: 8345660001163590781}
   m_Layer: 8
   m_Name: North_Carolina
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2903,7 +2916,7 @@ GameObject:
   - component: {fileID: 8518718525526676092}
   m_Layer: 8
   m_Name: Texas
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2922,7 +2935,7 @@ GameObject:
   - component: {fileID: 7110982032768038875}
   m_Layer: 8
   m_Name: Georgia
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2964,7 +2977,7 @@ GameObject:
   - component: {fileID: 4231677959402559335}
   m_Layer: 8
   m_Name: North_Dakota
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3005,7 +3018,7 @@ GameObject:
   - component: {fileID: 8501677159949129063}
   m_Layer: 8
   m_Name: California
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3118,7 +3131,7 @@ GameObject:
   - component: {fileID: 7712087527658201994}
   m_Layer: 8
   m_Name: South_Carolina
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3179,7 +3192,7 @@ GameObject:
   - component: {fileID: 7445786325467224832}
   m_Layer: 8
   m_Name: Wyoming
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3409,7 +3422,7 @@ GameObject:
   - component: {fileID: 7003135299922980867}
   m_Layer: 0
   m_Name: Colorado
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3499,7 +3512,7 @@ GameObject:
   - component: {fileID: 9087037251628721586}
   m_Layer: 8
   m_Name: Maine
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3518,7 +3531,7 @@ GameObject:
   - component: {fileID: 8454164792476539363}
   m_Layer: 8
   m_Name: Washington
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3579,7 +3592,7 @@ GameObject:
   - component: {fileID: 8563500481829347126}
   m_Layer: 8
   m_Name: Nebraska
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3598,7 +3611,7 @@ GameObject:
   - component: {fileID: 5599580015581797029}
   m_Layer: 8
   m_Name: Vermont
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3825,7 +3838,7 @@ GameObject:
   - component: {fileID: 8739639177924965279}
   m_Layer: 8
   m_Name: New_Jersey
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4037,7 +4050,7 @@ GameObject:
   - component: {fileID: 6761597409595634902}
   m_Layer: 8
   m_Name: Conneticut
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4221,7 +4234,7 @@ GameObject:
   - component: {fileID: 7029624345336784429}
   m_Layer: 8
   m_Name: Pennsylvania
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4283,7 +4296,7 @@ GameObject:
   - component: {fileID: 7128690259556592480}
   m_Layer: 8
   m_Name: Tennessee
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4316,7 +4329,7 @@ GameObject:
   - component: {fileID: 8722227495014822681}
   m_Layer: 8
   m_Name: Montana
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4372,7 +4385,7 @@ GameObject:
   - component: {fileID: 7866235999576156217}
   m_Layer: 8
   m_Name: Alabama
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4536,7 +4549,7 @@ GameObject:
   - component: {fileID: 7658758961680719717}
   m_Layer: 8
   m_Name: Nevada
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4569,7 +4582,7 @@ GameObject:
   - component: {fileID: 7698377681620384025}
   m_Layer: 8
   m_Name: New_Hampshire
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4658,7 +4671,7 @@ GameObject:
   - component: {fileID: 8110637489716235766}
   m_Layer: 8
   m_Name: Kansas
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4898,7 +4911,7 @@ GameObject:
   - component: {fileID: 8082098022748887472}
   m_Layer: 8
   m_Name: Florida
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4931,7 +4944,7 @@ GameObject:
   - component: {fileID: 8096823544679750118}
   m_Layer: 8
   m_Name: Missouri
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4994,7 +5007,7 @@ GameObject:
   - component: {fileID: 8192401669405561596}
   m_Layer: 8
   m_Name: Delaware
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5509,7 +5522,7 @@ GameObject:
   - component: {fileID: 8765489719671594499}
   m_Layer: 8
   m_Name: Wisconsin
-  m_TagString: Untagged
+  m_TagString: drag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
