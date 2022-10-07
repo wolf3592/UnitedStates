@@ -1,25 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 public class Grabber : MonoBehaviour
 {
 
     GameObject selectedObject;
+    GameObject hoverObject;
+
+    Color hoverOriginalColour;
     Vector3 selectedObjectOffset;
 
-    public float depthAdjustment=-2.739f;
+    public TextMeshProUGUI infoText;
 
     // Update is called once per frame
     void Update()    
     {
+        RaycastHit hit;
+        hit=CastRay();
+        GameObject overObject=null;
+        if (hit.collider!=null && hit.collider.CompareTag("drag")) overObject=hit.collider.gameObject;
 
-        
+        //If not dragging
+        if (selectedObject ==null)
+        {
+            //if the overobject has changed
+            if (overObject!=hoverObject)
+            {   
+                if (hoverObject!=null)
+                {
+                    //not hovering over old object so reset its colour
+                    hoverObject.GetComponent<MeshRenderer>().material.color=hoverOriginalColour;
+                }
+
+                if (overObject==null)
+                {
+                    hoverObject=null;
+                    if (infoText!=null) infoText.text="";
+                }
+                else
+                {
+                    hoverObject=overObject;
+                    if (infoText!=null) infoText.text=hit.collider.gameObject.name.Replace("_"," ");
+                    //store colour then set to green
+                    hoverOriginalColour=hoverObject.GetComponent<MeshRenderer>().material.color;
+                    hoverObject.GetComponent<MeshRenderer>().material.color=Color.green;
+
+                }                
+            }
+
+        }
+
+
         if (Input.GetMouseButtonDown(0))
         {
             if (selectedObject==null)
             {
-                RaycastHit hit=CastRay();
+                
                 if (hit.collider!=null)
                 {
                     if (!hit.collider.CompareTag("drag")) return;
@@ -27,9 +65,14 @@ public class Grabber : MonoBehaviour
                     selectedObjectOffset=hit.point-hit.collider.gameObject.transform.position;
                     selectedObjectOffset=new Vector3(selectedObjectOffset.x,0,selectedObjectOffset.z);
                     Cursor.visible=true;
+                    if (infoText!=null) infoText.text=selectedObject.name.Replace("_"," ");
                 }
             }
-            else
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (selectedObject!=null)
             {
                 Vector3 position=new Vector3(Input.mousePosition.x,Input.mousePosition.y,Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
                 Vector3 worldPosition= Camera.main.ScreenToWorldPoint(position);
@@ -37,6 +80,7 @@ public class Grabber : MonoBehaviour
                 print ("Object Dropped:"+selectedObject.transform.position.y);
                 Cursor.visible=true;
                 selectedObject=null;
+                //if (infoText!=null) infoText.text="";
             }
         }
 

@@ -3,115 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-struct StateMovement
-{
-    public string Name;
-    public float position;
-    public float direction;
-}
-
 public class StateHandler : MonoBehaviour
 {
-    Transform[] t;
-    StateMovement[] positions;
-    public float MaxHeight=10;
-    public float speed=0.001f;
-
-    public GameObject objectToPlace;
-    public Camera gameCamera;
-
-    public int hoveringOver=0;
-
-    public Text infoText;
-    // Start is called before the first frame update
+  // Start is called before the first frame update
     void Start()
     {
         //List all of the childrem
-        t= this.gameObject.GetComponentsInChildren<Transform>();
-        print(t.Length);
-        positions=new StateMovement[t.Length];
-        for (int i = 1; i < t.Length; i++)
+        //set all states to random colour
+        Random.InitState(123); //same seed each time
+        MeshRenderer[] mats=GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer m in mats)
         {
-            positions[i]=new StateMovement();
-            positions[i].direction=0;
-            positions[i].position=0;
-            positions[i].Name=t[i].name;
-        }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        for (int i = 1; i < t.Length; i++)
-        {
-            if (positions[i].direction!=0)    
-            {
-                float p=positions[i].position;
-
-                p+=speed*positions[i].direction;
-                if (p>=1 && hoveringOver!=i) positions[i].direction=-positions[i].direction;
-                if (p<0) positions[i].direction=0;
-                p=Mathf.Clamp(p,0,1);
-                positions[i].position=p;
-                Vector3 lp=t[i].transform.position;
-
-                t[i].transform.position=new Vector3( lp.x,Mathf.Lerp(0,MaxHeight,p), lp.z);
-            }
-        }
-
-        int s=Random.Range(1,49);
-        if (positions[s].direction==0) 
-        {
-            //positions[s].direction=1;
-        }
-
-        Ray ray=gameCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(ray,out hitInfo,100f))
-        {
-
-            infoText.text=(hitInfo.collider.gameObject.name).Replace("_"," ");
+            m.material.color=new Color(Random.Range(0.0f,0.7f),0,Random.Range(0.3f,1f),1);
+            //m.material.color=new Color(0,0,Random.Range(0.3f,1f),1);
             
-            objectToPlace.SetActive(true);
-            objectToPlace.transform.position=hitInfo.point;
-
-            HighlightState(FindStateByName(hitInfo.collider.gameObject.name));
-
-            //objectToPlace.transform.rotation=Quaternion.FromToRotation(Vector3.up,hitInfo.normal);
         }
-        else
-        {
-            objectToPlace.SetActive(false);
-            infoText.text="";
-            hoveringOver=0;
-        }
-
     }
 
-    int FindStateByName(string name)
-    {
-        for (int i = 1; i < t.Length; i++)
-        {
-            if (positions[i].Name==name)    
-            {
-                return i;
-            }
-        }    
-        return 0;
-    }
 
-    void HighlightState(int state)
-    {
-        if (state!=0)
-        {
-            if (positions[state].direction==0)
-            {
-                hoveringOver=state;
-                positions[state].direction=1;
-            }
-        }
-        
-    }
 }
