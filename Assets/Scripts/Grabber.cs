@@ -8,6 +8,8 @@ public class Grabber : MonoBehaviour
     GameObject selectedObject;
     Vector3 selectedObjectOffset;
 
+    public float depthAdjustment=-2.739f;
+
     // Update is called once per frame
     void Update()    
     {
@@ -23,6 +25,7 @@ public class Grabber : MonoBehaviour
                     if (!hit.collider.CompareTag("drag")) return;
                     selectedObject=hit.collider.gameObject;
                     selectedObjectOffset=hit.point-hit.collider.gameObject.transform.position;
+                    selectedObjectOffset=new Vector3(selectedObjectOffset.x,0,selectedObjectOffset.z);
                     Cursor.visible=true;
                 }
             }
@@ -30,7 +33,8 @@ public class Grabber : MonoBehaviour
             {
                 Vector3 position=new Vector3(Input.mousePosition.x,Input.mousePosition.y,Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
                 Vector3 worldPosition= Camera.main.ScreenToWorldPoint(position);
-                selectedObject.transform.position=new Vector3(worldPosition.x,0f,worldPosition.z)-selectedObjectOffset;
+                selectedObject.transform.position=new Vector3(worldPosition.x,0,worldPosition.z)-selectedObjectOffset;
+                print ("Object Dropped:"+selectedObject.transform.position.y);
                 Cursor.visible=true;
                 selectedObject=null;
             }
@@ -40,7 +44,7 @@ public class Grabber : MonoBehaviour
         {
             Vector3 position=new Vector3(Input.mousePosition.x,Input.mousePosition.y,Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
             Vector3 worldPosition= Camera.main.ScreenToWorldPoint(position);
-            selectedObject.transform.position=new Vector3(worldPosition.x,.25f,worldPosition.z)-selectedObjectOffset;
+            selectedObject.transform.position=new Vector3(worldPosition.x,0+.25f,worldPosition.z)-selectedObjectOffset;
         }
         
     }
