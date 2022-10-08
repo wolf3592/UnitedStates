@@ -1982,6 +1982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 723371322}
   - component: {fileID: 723371321}
+  - component: {fileID: 723371323}
   m_Layer: 0
   m_Name: CameraController
   m_TagString: Untagged
@@ -2004,7 +2005,7 @@ MonoBehaviour:
   ground: {fileID: 104336793}
   groundMargin: 1
   mainCamera: {fileID: 963194227}
-  ScrollSpeed: 100
+  ScrollSpeed: 25
   ZoomSpeed: 1000
   ZoomMin: 5
   ZoomMax: 25
@@ -2023,6 +2024,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &723371323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723371320}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f6d4f84c753b8bbaa26e3c5bb8c973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentZoom: 0.5
+  zoomSpeed: 10
+  zoomMinMax: {x: 0, y: 1}
+  zoomPercentInverse: 30
+  dampingFrames: 5
+  farClipPlane: 10
 --- !u!1 &779568768
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,7 +2198,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Mexico
+  m_text: ...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

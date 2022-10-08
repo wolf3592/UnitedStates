@@ -23,7 +23,14 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 input=new Vector3(Input.GetAxisRaw("Horizontal")*ScrollSpeed,-Input.GetAxisRaw("Mouse ScrollWheel")*ZoomSpeed,Input.GetAxisRaw("Vertical")*ScrollSpeed)*Time.deltaTime;
+        //Create a vector from (0,25,0) to MousePointerWorldPosition
+        //Lerp camera position onto this line depending on zoom value (Y value)
+
+        
+        float zoomSpeedFactor=mainCamera.transform.position.y/25f*ScrollSpeed;
+        //Vector3 input=new Vector3(Input.GetAxisRaw("Horizontal")*ScrollSpeed,-Input.GetAxisRaw("Mouse ScrollWheel")*ZoomSpeed,Input.GetAxisRaw("Vertical")*ScrollSpeed)*Time.deltaTime;
+        Vector3 input=new Vector3(Input.GetAxisRaw("Horizontal")*zoomSpeedFactor,-Input.GetAxisRaw("Mouse ScrollWheel")*ZoomSpeed,Input.GetAxisRaw("Vertical")*zoomSpeedFactor)*Time.deltaTime;
+        
         mainCamera.transform.Translate(input,Space.World);
         
         ClampXZ(mainCamera.transform,5f,ground.transform.localScale.x,ground.transform.localScale.z,groundMargin);

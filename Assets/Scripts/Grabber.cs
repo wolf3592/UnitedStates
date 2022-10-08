@@ -61,6 +61,7 @@ public class Grabber : MonoBehaviour
                 if (hit.collider!=null)
                 {
                     if (!hit.collider.CompareTag("drag")) return;
+                    CameraZoom.locked=true;
                     selectedObject=hit.collider.gameObject;
                     selectedObjectOffset=hit.point-hit.collider.gameObject.transform.position;
                     selectedObjectOffset=new Vector3(selectedObjectOffset.x,0,selectedObjectOffset.z);
@@ -80,6 +81,7 @@ public class Grabber : MonoBehaviour
                 print ("Object Dropped:"+selectedObject.transform.position.y);
                 Cursor.visible=true;
                 selectedObject=null;
+                CameraZoom.locked=false;
                 //if (infoText!=null) infoText.text="";
             }
         }
@@ -110,6 +112,9 @@ public class Grabber : MonoBehaviour
         Vector3 worldMousePositionNear= Camera.main.ScreenToWorldPoint(screenMousePosNear);
         RaycastHit hit;
         Physics.Raycast(worldMousePositionNear,worldMousePositionFar-worldMousePositionNear,out hit);
+
+        //Camera.main.transform.LookAt(worldMousePositionFar);
+
         return hit;
     }
 }
