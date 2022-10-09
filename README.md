@@ -1,6 +1,6 @@
 ## United States
 
-Learning Unity by building a jigsaw of the USA States, also useful for learning the positioning and shapes of each state.
+Learning Unity by building a jigsaw of the contiguous USA States, also useful for learning the positioning and shapes of each state.
 
 ToDo List
 - UI button "Start"
