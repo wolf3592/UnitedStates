@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class StateHandler : MonoBehaviour
 {
-  // Start is called before the first frame update
+  public float jumbleDistance=30f;
+  public Vector3 offsetState;
     void Start()
     {
         //List all of the childrem
@@ -20,5 +21,25 @@ public class StateHandler : MonoBehaviour
         }
     }
 
+    public void StartGame()
+    {
+        print ("Start Game pressed");
+        RandomizePieces();
+    }
+
+    void RandomizePieces()
+    {
+        MeshRenderer[] meshs=GetComponentsInChildren<MeshRenderer>();
+        float angle=0;
+        
+        foreach (MeshRenderer m in meshs)
+        {
+            //move each piece outwards jumbleDistance 
+            Vector3 direction=new Vector3(Mathf.Cos(Mathf.Deg2Rad*angle),0,Mathf.Sin(Mathf.Deg2Rad*angle));
+            Vector3 meshCenter= m.bounds.center;
+            m.transform.position=direction*(jumbleDistance/2f)-meshCenter+offsetState;
+            angle+=360/(meshs.Length+0.5f);
+        }
+    }
 
 }
