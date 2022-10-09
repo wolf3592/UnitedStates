@@ -14,6 +14,8 @@ public class Grabber : MonoBehaviour
 
     public TextMeshProUGUI infoText;
 
+    Vector3 correctPosition=new Vector3(-13.62f,0,-10.75f);
+
     // Update is called once per frame
     void Update()    
     {
@@ -78,6 +80,14 @@ public class Grabber : MonoBehaviour
                 Vector3 position=new Vector3(Input.mousePosition.x,Input.mousePosition.y,Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
                 Vector3 worldPosition= Camera.main.ScreenToWorldPoint(position);
                 selectedObject.transform.position=new Vector3(worldPosition.x,0,worldPosition.z)-selectedObjectOffset;
+                if (DistanceFromTarget(selectedObject.transform.position)<0.25f)
+                {
+                    selectedObject.transform.position=correctPosition;
+                    selectedObject.tag="correct";
+                    selectedObject.GetComponent<MeshRenderer>().material.color=Color.white;
+                    hoverObject=null;
+                    
+                }
                 print ("Object Dropped:"+selectedObject.transform.position.y);
                 Cursor.visible=true;
                 selectedObject=null;
@@ -93,6 +103,13 @@ public class Grabber : MonoBehaviour
             selectedObject.transform.position=new Vector3(worldPosition.x,0+.25f,worldPosition.z)-selectedObjectOffset;
         }
         
+    }
+
+    float DistanceFromTarget(Vector3 position)
+    {
+        float distance=(position-correctPosition).magnitude;
+        print (distance);
+        return distance;
     }
 
     RaycastHit CastRay()
