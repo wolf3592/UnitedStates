@@ -85,6 +85,7 @@ public class Grabber : MonoBehaviour
                     selectedObject.transform.position=correctPosition;
                     selectedObject.tag="correct";
                     selectedObject.GetComponent<MeshRenderer>().material.color=Color.white;
+                    StateHandler.CorrectPieces++;
                     hoverObject=null;
                     
                 }
