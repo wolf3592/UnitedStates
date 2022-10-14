@@ -9,4 +9,6 @@ ToDo List
 - If dropped near correct position then snap or slide into correct position
 - Mark correctly position states in green?
 
-Map data adapted from: https://freevectormaps.com/united-states/US-EPS-02-0003?ref=atr
+USA Map data adapted from: https://freevectormaps.com/united-states/US-EPS-02-0003?ref=atr
+Africa Map data adapted from: https://freevectormaps.com/world-maps/africa/WRLD-AF-02-0002?ref=atr
+World Map data adapted from: https://freevectormaps.com/world-maps/WRLD-EPS-02-0015?ref=atr
