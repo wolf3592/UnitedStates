@@ -7,23 +7,16 @@ using TMPro;
 
 public class StateHandler : MonoBehaviour
 {
-  public static int CorrectPieces=0;
-
   public float jumbleGridSize=3.5f;
 
   public int jumbleNumtoMove=10;
   public Vector3 offsetState;
-  public GameObject startButton;
-  public GameObject resetButton;
-
+  
   Vector3 startPosition=new Vector3 (-25,0,18);
   public Vector3 currentPosition;
-  public float seconds;
 
-  private bool GameStarted=false;
 
-  public TextMeshProUGUI textTimer;
-  public TextMeshProUGUI textCorrect;
+
 
     void Start()
     {
@@ -42,43 +35,10 @@ public class StateHandler : MonoBehaviour
 
     public void Update()
     {
-        if (GameStarted)
-        {
-            seconds+=Time.deltaTime;
 
-            textTimer.text=seconds.ToString("0.0");
-            textCorrect.text=CorrectPieces.ToString("0");
-            if (CorrectPieces==48)
-            {
-                GameStarted=false;
-            }
-        }
         //update the timer if we've started
     }
-    public void StartGame()
-    {
-        print ("Start Game pressed");
-        RandomizePieces2();
-        GameStarted=true;
-        CorrectPieces=0;
-        startButton.GetComponent<Button>().interactable=false;
-        resetButton.GetComponent<Button>().interactable=true;
-    }
 
-    public void ResetGame()
-    {
-        print ("Reset Game pressed");
-        GameStarted=false;
-        SceneManager.LoadScene(0);
-        startButton.GetComponent<Button>().interactable=true;
-        resetButton.GetComponent<Button>().interactable=false;
-    }
-
-    public void QuitGame()
-    {
-        print ("Quit Game pressed");
-        Application.Quit();
-    }
 
     void RandomizePieces()
     {
@@ -101,17 +61,18 @@ public class StateHandler : MonoBehaviour
         // }
     }
 
-    void RandomizePieces2()
+    public int RandomizePieces2()
     {
         MeshRenderer[] meshs=GetComponentsInChildren<MeshRenderer>();
         currentPosition=startPosition;
-        
-        List<MeshRenderer> order=new List<MeshRenderer>();
-        foreach (MeshRenderer m in meshs)
-        {
-            order.Add(m);
-        }
+
+        List<MeshRenderer> order=new List<MeshRenderer>(meshs);
+        int countPieces;
+
+
         print (order.Count);
+        countPieces=order.Count;
+        //CorrectPieces=countPieces;
         Random.InitState((int)Time.time);
         while (order.Count>0)
         {
@@ -122,17 +83,7 @@ public class StateHandler : MonoBehaviour
             order.RemoveAt(index);
         }
 
-        // foreach (MeshRenderer m in meshs)
-        // {
-            
-
-        //     m.transform.position=GetNextPlace()-meshCenter+offsetState;
-        //     //angle+=  jumbleDeltaAngle;//360/(meshs.Length+0.5f);
-
-        //     //counter++;
-        //     //if (angle>jumbleEndAngle) break;
-        //     //if (counter>jumbleNumtoMove) break;
-        // }
+        return countPieces;
     }
 
     Vector3 GetNextPlace()

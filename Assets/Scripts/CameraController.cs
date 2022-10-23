@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
 
     public float ZoomMin;
     public float ZoomMax;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,4 +54,6 @@ public class CameraController : MonoBehaviour
         Vector3 newPos=new Vector3(t.position.x,Mathf.Clamp(t.position.y,yMin,yMax),t.position.z);
         t.position=newPos;
     }
+
+
 }

@@ -14,7 +14,7 @@ public class Grabber : MonoBehaviour
 
     public TextMeshProUGUI infoText;
 
-    Vector3 correctPosition=new Vector3(-13.62f,0,-10.75f);
+    public Vector3 correctPosition=new Vector3(-13.62f,0,-10.75f);
 
     // Update is called once per frame
     void Update()    
@@ -23,10 +23,11 @@ public class Grabber : MonoBehaviour
         hit=CastRay();
         GameObject overObject=null;
         if (hit.collider!=null && hit.collider.CompareTag("drag")) overObject=hit.collider.gameObject;
-
+        //print(hit.collider);
         //If not dragging
         if (selectedObject ==null)
         {
+            
             //if the overobject has changed
             if (overObject!=hoverObject)
             {   
@@ -85,11 +86,11 @@ public class Grabber : MonoBehaviour
                     selectedObject.transform.position=correctPosition;
                     selectedObject.tag="correct";
                     selectedObject.GetComponent<MeshRenderer>().material.color=Color.white;
-                    StateHandler.CorrectPieces++;
+                    MyGameManager.CorrectPieces--;
                     hoverObject=null;
                     
                 }
-                print ("Object Dropped:"+selectedObject.transform.position.y);
+                print ("Object Dropped:"+selectedObject.transform.position);
                 Cursor.visible=true;
                 selectedObject=null;
                 CameraZoom.locked=false;
