@@ -14,6 +14,8 @@ public class Grabber : MonoBehaviour
 
     public TextMeshProUGUI infoText;
 
+    public Vector3 correctPosition=new Vector3(-13.62f,0,-10.75f);
+
     // Update is called once per frame
     void Update()    
     {
@@ -21,10 +23,11 @@ public class Grabber : MonoBehaviour
         hit=CastRay();
         GameObject overObject=null;
         if (hit.collider!=null && hit.collider.CompareTag("drag")) overObject=hit.collider.gameObject;
-
+        //print(hit.collider);
         //If not dragging
         if (selectedObject ==null)
         {
+            
             //if the overobject has changed
             if (overObject!=hoverObject)
             {   
@@ -61,6 +64,7 @@ public class Grabber : MonoBehaviour
                 if (hit.collider!=null)
                 {
                     if (!hit.collider.CompareTag("drag")) return;
+                    CameraZoom.locked=true;
                     selectedObject=hit.collider.gameObject;
                     selectedObjectOffset=hit.point-hit.collider.gameObject.transform.position;
                     selectedObjectOffset=new Vector3(selectedObjectOffset.x,0,selectedObjectOffset.z);
@@ -77,9 +81,19 @@ public class Grabber : MonoBehaviour
                 Vector3 position=new Vector3(Input.mousePosition.x,Input.mousePosition.y,Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
                 Vector3 worldPosition= Camera.main.ScreenToWorldPoint(position);
                 selectedObject.transform.position=new Vector3(worldPosition.x,0,worldPosition.z)-selectedObjectOffset;
-                print ("Object Dropped:"+selectedObject.transform.position.y);
+                if (DistanceFromTarget(selectedObject.transform.position)<0.25f)
+                {
+                    selectedObject.transform.position=correctPosition;
+                    selectedObject.tag="correct";
+                    selectedObject.GetComponent<MeshRenderer>().material.color=Color.white;
+                    MyGameManager.CorrectPieces--;
+                    hoverObject=null;
+                    
+                }
+                print ("Object Dropped:"+selectedObject.transform.position);
                 Cursor.visible=true;
                 selectedObject=null;
+                CameraZoom.locked=false;
                 //if (infoText!=null) infoText.text="";
             }
         }
@@ -91,6 +105,13 @@ public class Grabber : MonoBehaviour
             selectedObject.transform.position=new Vector3(worldPosition.x,0+.25f,worldPosition.z)-selectedObjectOffset;
         }
         
+    }
+
+    float DistanceFromTarget(Vector3 position)
+    {
+        float distance=(position-correctPosition).magnitude;
+        print (distance);
+        return distance;
     }
 
     RaycastHit CastRay()
@@ -110,6 +131,9 @@ public class Grabber : MonoBehaviour
         Vector3 worldMousePositionNear= Camera.main.ScreenToWorldPoint(screenMousePosNear);
         RaycastHit hit;
         Physics.Raycast(worldMousePositionNear,worldMousePositionFar-worldMousePositionNear,out hit);
+
+        //Camera.main.transform.LookAt(worldMousePositionFar);
+
         return hit;
     }
 }
