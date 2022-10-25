@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class MyGameManager : MonoBehaviour
 {
-    List<string> puzzles=new List<string>() {"","Africa","Asia","Australia","Canada","Caribbean","Central America","Europe","Middle East","Oceania","South America","United_States"};
+    List<string> puzzles=new List<string>() {"Africa","Asia","Australia","Canada","Caribbean","Central America","Europe","Middle East","Oceania","South America","United_States"};
     public static int CorrectPieces=0;
     GameObject africaParent;
     GameObject africaHole;
@@ -27,6 +27,8 @@ public class MyGameManager : MonoBehaviour
 
     TextMeshProUGUI textTimer;
     TextMeshProUGUI textCorrect;
+
+    TextMeshProUGUI hoverText;
     TMPro.TMP_Dropdown puzzleDropdown;
 
     public Material worldMaterial;
@@ -86,17 +88,7 @@ public class MyGameManager : MonoBehaviour
 
     public void OnValueChanged(int target)
     {
-        string selection=puzzles[target].Replace(" ","_");
-        GameObject go = GameObject.Find(selection);
-        if (go!=null) 
-            {
-            FocusCamera(GetChildBounds(go));
-            if (goCurrentPuzzle!=null) DeselectGO(goCurrentPuzzle);
-            HighlightGO(go);
-            goCurrentPuzzle=go;
-            }
-        else
-            print ("Could not find: "+selection);
+        SelectPuzzle(target);
     }
 
   private void DeselectGO(GameObject go)
@@ -113,6 +105,7 @@ public class MyGameManager : MonoBehaviour
 
   private void HighlightGO(GameObject go)
   {
+        hoverText.text=go.name.Replace("_"," ");
         MeshRenderer[] mats=go.GetComponentsInChildren<MeshRenderer>();
         foreach (MeshRenderer m in mats)
         {
@@ -147,39 +140,76 @@ public class MyGameManager : MonoBehaviour
     public void SetPuzzleButtonState()
     {
         object test=null; //goCurrentPuzzle;
-        africaButton.interactable=!(test==africaParent);
-        usaButton.interactable=!(test==usaParent);
-        ukButton.interactable=!(test==ukParent);
+        // africaButton.interactable=!(test==africaParent);
+        // usaButton.interactable=!(test==usaParent);
+        // ukButton.interactable=!(test==ukParent);
     }
     public void Start()
     {
         //cache gameobjects
-        africaParent=GameObject.Find("africaParent");
-        africaHole=GameObject.Find("africaHole");
-        usaParent=GameObject.Find("usaParent");
-        usaHole=GameObject.Find("usaHole");
-        ukParent=GameObject.Find("ukParent");
-        ukHole=GameObject.Find("ukHole");
+        // africaParent=GameObject.Find("africaParent");
+        // africaHole=GameObject.Find("africaHole");
+        // usaParent=GameObject.Find("usaParent");
+        // usaHole=GameObject.Find("usaHole");
+        // ukParent=GameObject.Find("ukParent");
+        // ukHole=GameObject.Find("ukHole");
 
         startButton=GameObject.Find("StartButton").GetComponent<Button>();
         resetButton=GameObject.Find("ResetButton").GetComponent<Button>();
-        usaButton=GameObject.Find("UsaButton").GetComponent<Button>();
-        africaButton=GameObject.Find("AfricaButton").GetComponent<Button>();        
-        ukButton=GameObject.Find("UKButton").GetComponent<Button>();        
+        // usaButton=GameObject.Find("UsaButton").GetComponent<Button>();
+        // africaButton=GameObject.Find("AfricaButton").GetComponent<Button>();        
+        // ukButton=GameObject.Find("UKButton").GetComponent<Button>();        
 
         textTimer=GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
         textCorrect=GameObject.Find("CorrectText").GetComponent<TextMeshProUGUI>();
-        puzzleDropdown=GameObject.Find("PuzzleDropdown").GetComponent<TMP_Dropdown>();
-        
+        //puzzleDropdown=GameObject.Find("PuzzleDropdown").GetComponent<TMP_Dropdown>();
+        hoverText=GameObject.Find("HoverText").GetComponent<TextMeshProUGUI>();
+
+
         UsaOnClick();
         ResetUI();
-        PopulateDropdown();
-        //SelectPuzzle(0);
+        //PopulateDropdown();
+
+        SelectPuzzle(0);
     }
 
-    
+  private void SelectPuzzle(int index)
+  {
+        string selection=puzzles[index].Replace(" ","_");
 
-    public void PopulateDropdown()
+
+        currentPuzzle=index;
+        GameObject go = GameObject.Find(selection);
+        if (go!=null) 
+            {
+            FocusCamera(GetChildBounds(go));
+            if (goCurrentPuzzle!=null) DeselectGO(goCurrentPuzzle);
+            HighlightGO(go);
+            goCurrentPuzzle=go;
+            }
+        else
+            {
+                if (goCurrentPuzzle!=null) DeselectGO(goCurrentPuzzle);
+                goCurrentPuzzle=null;
+                print ("Could not find: "+selection);    
+            }
+  }
+
+  public void NextButtonOnClick()
+  {
+    currentPuzzle++;
+    if (currentPuzzle==puzzles.Count) currentPuzzle=0;
+    SelectPuzzle(currentPuzzle);
+  }
+
+  public void PrevButtonOnClick()
+  {
+    currentPuzzle--;
+    if (currentPuzzle<0) currentPuzzle=puzzles.Count-1;
+    SelectPuzzle(currentPuzzle);
+  }
+
+  public void PopulateDropdown()
     {
         //Dropdown d=dd.GetComponent<Dropdown>();
         //d.AddOptions(puzzles);
