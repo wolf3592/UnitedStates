@@ -73,7 +73,7 @@ public class MyGameManager : MonoBehaviour
     public void TestOnClick()
     {
         //get United_States
-        FocusCamera(GetChildBounds(GameObject.Find("United_States")));
+        //FocusCamera(GetChildBounds(GameObject.Find("United_States")));
 
     
         //get extent
@@ -83,7 +83,7 @@ public class MyGameManager : MonoBehaviour
 
     public void Test2OnClick()
     {
-        FocusCamera(GetChildBounds(GameObject.Find("Middle_East")));
+        //FocusCamera(GetChildBounds(GameObject.Find("Middle_East")));
     }
 
     public void OnValueChanged(int target)
@@ -127,13 +127,22 @@ public class MyGameManager : MonoBehaviour
         return b;
     }
 
-    private void FocusCamera(Bounds b)
+    private void FocusCamera(Bounds b,bool tween=true)
     {
         GameObject mainCamera=GameObject.Find("Main Camera");
         Camera mCamera=mainCamera.GetComponent<Camera>();
         
-         var distance = Mathf.Max(b.size.x,b.size.z) * 0.5f / Mathf.Tan(mCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        mainCamera.transform.position=new Vector3(b.center.x,distance,b.center.z);
+        var distance = (Mathf.Max(b.size.x,b.size.z)*1.0f) * 0.5f / Mathf.Tan(mCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        if (tween)
+        {
+        LeanTween.move(mainCamera,new Vector3(b.center.x,distance,b.center.z),0.8f).setEaseInOutCubic();
+        }
+        else
+        {
+            print("Move over bounds");
+            LeanTween.move(mainCamera,new Vector3(b.center.x,distance,b.center.z),0.8f).setEaseInOutCubic();
+        }
+        
 
     }
 
@@ -170,10 +179,10 @@ public class MyGameManager : MonoBehaviour
         ResetUI();
         //PopulateDropdown();
 
-        SelectPuzzle(0);
+        SelectPuzzle(0,false);
     }
 
-  private void SelectPuzzle(int index)
+  private void SelectPuzzle(int index,bool tween=true)
   {
         string selection=puzzles[index].Replace(" ","_");
 
@@ -182,7 +191,7 @@ public class MyGameManager : MonoBehaviour
         GameObject go = GameObject.Find(selection);
         if (go!=null) 
             {
-            FocusCamera(GetChildBounds(go));
+            FocusCamera(GetChildBounds(go),tween);
             if (goCurrentPuzzle!=null) DeselectGO(goCurrentPuzzle);
             HighlightGO(go);
             goCurrentPuzzle=go;

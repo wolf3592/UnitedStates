@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //mainCamera.transform.position=new Vector3(150,0,150);
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
         
         mainCamera.transform.Translate(input,Space.World);
         
-        ClampXZ(mainCamera.transform,5f,ground.transform.localScale.x,ground.transform.localScale.z,groundMargin);
+        //ClampXZ(mainCamera.transform,5f,ground.transform.localScale.x,ground.transform.localScale.z,groundMargin);
         ClampY(mainCamera.transform,ZoomMin,ZoomMax);
     }
 
