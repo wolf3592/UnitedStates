@@ -252,7 +252,7 @@ public class MyGameManager : MonoBehaviour
         CopyRegionToCurrent(goSelectedPuzzle);
         HighlightGO(goCurrentPuzzle);
         FadeOutWorld();
-        //ExplodePieces();
+        ExplodePieces();
         // print ("Start Game pressed");
         // int pieces=goCurrentPuzzle.GetComponent<StateHandler>().RandomizePieces2();
         // CorrectPieces=pieces;
@@ -266,7 +266,7 @@ public class MyGameManager : MonoBehaviour
 
     public void FadeOutWorld()
     {
-        LeanTween.value(transform.gameObject,updateWorldMaterialColour,Color.white,groundMaterial.color,1f).setOnComplete(ExplodePieces);
+        LeanTween.value(transform.gameObject,updateWorldMaterialColour,Color.white,groundMaterial.color,1f);
         //LeanTween.move(world)
         //LeanTween.value(transform.gameObject,updateWorldMaterialAlpha, 1f, 0f, 1f );
         //LeanTween.color()
@@ -296,7 +296,7 @@ public class MyGameManager : MonoBehaviour
         {
             //print(t.gameObject);
             
-            //LeanTween.move(t.gameObject,new Vector3(Random.Range(-2f,2f),currentPuzzleFloatHeight,Random.Range(-2f,2f)),0.8f).setEaseInOutCubic();
+            LeanTween.move(t.gameObject,new Vector3(Random.Range(-2f,2f),currentPuzzleFloatHeight,Random.Range(-2f,2f)),0.8f).setEaseInOutCubic();
         }
     }
 
