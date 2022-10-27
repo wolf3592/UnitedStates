@@ -32,6 +32,7 @@ public class MyGameManager : MonoBehaviour
     TMPro.TMP_Dropdown puzzleDropdown;
 
     public Material worldMaterial;
+    public Material groundMaterial;
 
     float seconds;
 
@@ -42,6 +43,7 @@ public class MyGameManager : MonoBehaviour
     GameObject goCurrentPuzzleHole;
     
     int currentPuzzleNumber=-1;
+    public float currentPuzzleFloatHeight=0.01f;
 
     private void EnablePuzzle()
     {
@@ -250,7 +252,7 @@ public class MyGameManager : MonoBehaviour
         CopyRegionToCurrent(goSelectedPuzzle);
         HighlightGO(goCurrentPuzzle);
         FadeOutWorld();
-        ExplodePieces();
+        //ExplodePieces();
         // print ("Start Game pressed");
         // int pieces=goCurrentPuzzle.GetComponent<StateHandler>().RandomizePieces2();
         // CorrectPieces=pieces;
@@ -264,14 +266,17 @@ public class MyGameManager : MonoBehaviour
 
     public void FadeOutWorld()
     {
-        Hashtable options=new Hashtable();
-        LeanTween.value(transform.gameObject,updateWorldMaterialAlpha, 1f, 0f, 1f );
+        LeanTween.value(transform.gameObject,updateWorldMaterialColour,Color.white,groundMaterial.color,1f).setOnComplete(ExplodePieces);
+        //LeanTween.move(world)
+        //LeanTween.value(transform.gameObject,updateWorldMaterialAlpha, 1f, 0f, 1f );
+        //LeanTween.color()
     }
 
     public void FadeInWorld()
     {
         Hashtable options=new Hashtable();
-        LeanTween.value(transform.gameObject,updateWorldMaterialAlpha, worldMaterial.color.a,1f,1f );
+        //LeanTween.value(transform.gameObject,updateWorldMaterialAlpha, worldMaterial.color.a,1f,1f );
+        LeanTween.value(gameObject,updateWorldMaterialColour,worldMaterial.color,Color.white,1f);
     }
 
     public void updateWorldMaterialAlpha(float v)
@@ -279,13 +284,19 @@ public class MyGameManager : MonoBehaviour
         worldMaterial.color=new Color(1,1,1,v);
     }
 
+    public void updateWorldMaterialColour(Color v)
+    {
+        worldMaterial.color=v;
+    }
+
     public void ExplodePieces()
     {
+        print(currentPuzzleFloatHeight);
         foreach (Transform t in goCurrentPuzzle.transform)
         {
-            print(t.gameObject);
+            //print(t.gameObject);
             
-            LeanTween.move(t.gameObject,new Vector3(Random.Range(-42f,-40f),1.1f,Random.Range(-42f,-40f)),0.8f).setEaseInOutCubic();
+            //LeanTween.move(t.gameObject,new Vector3(Random.Range(-2f,2f),currentPuzzleFloatHeight,Random.Range(-2f,2f)),0.8f).setEaseInOutCubic();
         }
     }
 
@@ -309,10 +320,16 @@ public class MyGameManager : MonoBehaviour
         foreach (Transform child in goP.transform)
         {
             //print("Foreach loop: " + child);
-            GameObject.Instantiate(child,goCurrentPuzzle.transform,true);
+            Transform tNew=GameObject.Instantiate(child,goCurrentPuzzle.transform,true);
+            tNew.position=new Vector3(tNew.position.x,currentPuzzleFloatHeight,tNew.position.z);
         }
         
         print ("finished");
+        // -43.71, -0.02, -41.5
+        //0,180,0
+        //319.4,1,323
+
+        //
     }
 
     public void ResetGame()
