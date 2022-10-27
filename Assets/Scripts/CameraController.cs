@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    public Transform ground;
+    public GameObject ground;
 
     public float groundMargin;
     public Camera mainCamera;
@@ -34,7 +34,9 @@ public class CameraController : MonoBehaviour
         
         mainCamera.transform.Translate(input,Space.World);
         
-        //ClampXZ(mainCamera.transform,5f,ground.transform.localScale.x,ground.transform.localScale.z,groundMargin);
+        Bounds boundsGround=ground.GetComponent<MeshRenderer>().bounds;
+        //print(boundsGround);
+        ClampXZ(mainCamera.transform,1f,boundsGround.size.x/2.0f,boundsGround.size.z/2.0f,groundMargin);
         ClampY(mainCamera.transform,ZoomMin,ZoomMax);
     }
 
