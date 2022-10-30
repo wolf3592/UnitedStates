@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class MyGameManager : MonoBehaviour
 {
-    List<string> puzzles=new List<string>() {"Africa","Asia","Australia","Canada","Caribbean","Central America","Europe","Middle East","South America","United_States"};
+    List<string> puzzles=new List<string>() {"Africa","Asia","Australia","Canada","Central America","Europe","Middle East","South America","United_States"};
     public static int CorrectPieces=0;
     // GameObject africaParent;
     // GameObject africaHole;
@@ -29,6 +29,8 @@ public class MyGameManager : MonoBehaviour
 
     TextMeshProUGUI textTimer;
     TextMeshProUGUI textCorrect;
+
+    TextMeshProUGUI debugText;
 
     TextMeshProUGUI hoverText;
     TMPro.TMP_Dropdown puzzleDropdown;
@@ -204,6 +206,9 @@ public class MyGameManager : MonoBehaviour
         textCorrect=GameObject.Find("CorrectText").GetComponent<TextMeshProUGUI>();
         //puzzleDropdown=GameObject.Find("PuzzleDropdown").GetComponent<TMP_Dropdown>();
         hoverText=GameObject.Find("HoverText").GetComponent<TextMeshProUGUI>();
+        debugText=GameObject.Find("DebugText").GetComponent<TextMeshProUGUI>();
+
+
         goWorld=GameObject.Find("New_World");
         goBackground=GameObject.Find("BackGround");
         goGround=GameObject.Find("Ground");
@@ -285,14 +290,15 @@ public class MyGameManager : MonoBehaviour
         //copy current region into puzzleCurrent
 
         DeselectGO(goSelectedPuzzle);
-        CopyRegion(goSelectedPuzzle,goPuzzle,null,puzzleLayer);
-        CopyRegion(goSelectedPuzzle,goPuzzleHole,holeMaterial,holeLayer);
-        
+        CorrectPieces=CopyRegion(goSelectedPuzzle,goPuzzle,null,puzzleLayer,"");
+        CopyRegion(goSelectedPuzzle,goPuzzleHole,holeMaterial,holeLayer,"_");
+        PrepareDrag(goPuzzle);
         //CopyRegionToHole(goSelectedPuzzle);
         HighlightGO(goPuzzle);
         FadeOutWorld();
         StartGameUI();
         ZoomOut();
+        GameStarted=true;
         //ExplodePieces();
         // print ("Start Game pressed");
         // int pieces=goCurrentPuzzle.GetComponent<StateHandler>().RandomizePieces2();
@@ -307,11 +313,11 @@ public class MyGameManager : MonoBehaviour
 
   private void ZoomOut()
   {
-    float zoomOutAmount=0.5f;
+    float zoomOutAmount=0.75f;
     Bounds b = GetChildBounds(goSelectedPuzzle);
     //print("Zoom Out bounds "+b);
     //b.Expand(b.size.z*2);
-    Bounds b2=new Bounds(new Vector3(b.center.x,b.center.y,b.center.z+(b.size.z*zoomOutAmount)),new Vector3(b.size.x,b.size.y,b.size.z*(1/zoomOutAmount)));
+    Bounds b2=new Bounds(new Vector3(b.center.x,b.center.y,b.center.z+(b.size.z*(1-zoomOutAmount))),new Vector3(b.size.x,b.size.y,b.size.z*(1/zoomOutAmount)));
     
     //print("Zoom Out bounds "+b2);
     //b.center=new Vector3(0,0,0);
@@ -349,7 +355,8 @@ public class MyGameManager : MonoBehaviour
         //LeanTween.move(world)
         //LeanTween.value(transform.gameObject,updateWorldMaterialAlpha, 1f, 0f, 1f );
         //LeanTween.color()
-        goWorld.SetActive(false);
+        //goWorld.SetActive(false);
+        SetWorldColor(new Color(.55f,.55f,.55f,1));
     }
 
     public void FadeInWorld()
@@ -357,8 +364,18 @@ public class MyGameManager : MonoBehaviour
         //Hashtable options=new Hashtable();
         //LeanTween.value(transform.gameObject,updateWorldMaterialAlpha, worldMaterial.color.a,1f,1f );
         //LeanTween.value(gameObject,updateWorldMaterialColour,worldMaterial.color,Color.white,1f);
-        goWorld.SetActive(true);
+        //goWorld.SetActive(true);
+        SetWorldColor(Color.white);
         
+    }
+
+    void SetWorldColor(Color c)
+    {
+        MeshRenderer[] worldMeshes=goWorld.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer mr in worldMeshes)
+        {
+            mr.material.color=c;
+        }
     }
 
     public void updateWorldMaterialAlpha(float v)
@@ -387,11 +404,13 @@ public class MyGameManager : MonoBehaviour
 
     public int RandomizePieces2()
     {
+        float iMinZ=0;
         rectPuzzleGround=VisibleGround();
         //MeshRenderer[] meshs=GetComponentsInChildren<MeshRenderer>();
         startPosition=new Vector3(rectPuzzleGround.x,puzzleLayer,rectPuzzleGround.y+rectPuzzleGround.height);
         print("Start Position: "+startPosition);
         currentPosition=startPosition;
+        iMinZ=startPosition.z;
 
         List<Transform> order=new List<Transform>();
         foreach (Transform t in goPuzzle.transform)
@@ -421,8 +440,16 @@ public class MyGameManager : MonoBehaviour
             Vector3 mbSize=new Vector3(meshBounds.size.x*0.5f,0,-meshBounds.size.z*0.5f);
             Vector3 mbCenter=new Vector3(meshBounds.center.x,0,meshBounds.center.z);
             //print("Current Position: "+currentPosition);
+            
+            //check if offscreen
+            if ((currentPosition+mbSize).x>(rectPuzzleGround.x+rectPuzzleGround.width))
+            {
+                //move CurrentPosition down to iMinZ
+                currentPosition=new Vector3(startPosition.x,startPosition.y,iMinZ);
+            }
             Vector3 v = currentPosition+mbSize-mbCenter;
             print(meshToMove.gameObject.name+" position:"+v+" size: "+meshBounds.size);
+            iMinZ=Mathf.Min(iMinZ,currentPosition.z-meshBounds.size.z);
             //Vector3 v2=new Vector3(rectPuzzleGround.x,0,rectPuzzleGround.y+rectPuzzleGround.height); //align to left edge
             //Vector3 v=new Vector3(rectPuzzleGround.x+meshBounds.size.x*0.5f-meshBounds.center.x,0,0); //align to left edge
             //Vector3 v=new Vector3(0,0,(rectPuzzleGround.y+rectPuzzleGround.height)-meshBounds.size.z*0.5f-meshBounds.center.z); //align to top edge
@@ -465,8 +492,10 @@ public class MyGameManager : MonoBehaviour
         print ("destroy finished:" +counter);
     }
 
-    private void CopyRegion(GameObject gFrom,GameObject gTo,Material m,float pLayer)
+    private int CopyRegion(GameObject gFrom,GameObject gTo,Material m,float pLayer,string cloneRename)
     {
+        //return number of pieces
+
         int counter=0;
 
         // GameObject[] children=goP.GetComponentsInChildren<GameObject>();
@@ -480,17 +509,46 @@ public class MyGameManager : MonoBehaviour
         counter=0;
         foreach (Transform child in gFrom.transform)
         {
+            if (child.gameObject.activeSelf)
+            {
             //print("Foreach loop: " + child);
             Transform tNew=GameObject.Instantiate(child,gTo.transform,true);
             //tNew.position=new Vector3(tNew.position.x,0.02f,tNew.position.z);
             //tNew.localPosition=new Vector3(0,-0.01f,0);
             tNew.position=new Vector3(tNew.position.x,pLayer,tNew.position.z);
             if (m!=null) tNew.GetComponent<MeshRenderer>().material=m;
-            //tNew.gameObject.name=tNew.gameObject.name.Replace("(Clone)","*")+puzzleStartCount.ToString();
+            tNew.gameObject.name=tNew.gameObject.name.Replace("(Clone)",cloneRename);
+
             counter++;
+            }
         }
         //goPuzzle.transform.position=new Vector3(0,puzzleLayer,0);
         print ("Copy finished:" +counter);
+        return counter;
+    }
+
+    private void PrepareDrag(GameObject gParent)
+    {
+        foreach (Transform child in gParent.transform)
+        {
+            //child.gameObject.AddComponent<MeshCollider>(); 
+            child.gameObject.tag="drag";
+        }
+        //debugText.text="cannot find Algeria_puzz";
+        // GameObject algeria=GameObject.Find("Algeria_puzz");
+        // Physics.SyncTransforms();
+        // if (algeria!=null)
+        // {
+        //     debugText.text="Not Found Algeria_puzz mesh_collider";
+        //     MeshCollider mc=algeria.GetComponent<MeshCollider>();
+        //     if (mc!=null) 
+        //     {
+        //   //      debugText.text=mc.sharedMesh.name;
+        //     }
+
+
+        // }
+        
     }
 
     public void ResetGame()

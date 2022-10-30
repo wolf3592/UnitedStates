@@ -13,17 +13,22 @@ public class Grabber : MonoBehaviour
     Vector3 selectedObjectOffset;
 
     public TextMeshProUGUI infoText;
-
+    public Camera mainCamera;
     public Vector3 correctPosition=new Vector3(-13.62f,0,-10.75f);
+
+    float puzzleLayer=0.02f;
 
     // Update is called once per frame
     void Update()    
     {
+        //infoText.text="Grabber Update";
         RaycastHit hit;
         hit=CastRay();
         GameObject overObject=null;
         if (hit.collider!=null && hit.collider.CompareTag("drag")) overObject=hit.collider.gameObject;
         //print(hit.collider);
+        //if (hit.collider==null) infoText.text="Grabber Hit null";
+
         //If not dragging
         if (selectedObject ==null)
         {
@@ -80,10 +85,10 @@ public class Grabber : MonoBehaviour
             {
                 Vector3 position=new Vector3(Input.mousePosition.x,Input.mousePosition.y,Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
                 Vector3 worldPosition= Camera.main.ScreenToWorldPoint(position);
-                selectedObject.transform.position=new Vector3(worldPosition.x,0,worldPosition.z)-selectedObjectOffset;
+                selectedObject.transform.position=new Vector3(worldPosition.x,puzzleLayer,worldPosition.z)-selectedObjectOffset;
                 if (DistanceFromTarget(selectedObject.transform.position)<0.25f)
                 {
-                    selectedObject.transform.position=correctPosition;
+                    selectedObject.transform.position=new Vector3(correctPosition.x,puzzleLayer,correctPosition.z);
                     selectedObject.tag="correct";
                     selectedObject.GetComponent<MeshRenderer>().material.color=Color.white;
                     MyGameManager.CorrectPieces--;
@@ -102,7 +107,7 @@ public class Grabber : MonoBehaviour
         {
             Vector3 position=new Vector3(Input.mousePosition.x,Input.mousePosition.y,Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
             Vector3 worldPosition= Camera.main.ScreenToWorldPoint(position);
-            selectedObject.transform.position=new Vector3(worldPosition.x,0+.25f,worldPosition.z)-selectedObjectOffset;
+            selectedObject.transform.position=new Vector3(worldPosition.x,puzzleLayer+0.01f,worldPosition.z)-selectedObjectOffset;
         }
         
     }
@@ -119,17 +124,20 @@ public class Grabber : MonoBehaviour
         Vector3 screenMousePosFar= new Vector3(
             Input.mousePosition.x,
             Input.mousePosition.y,
-            Camera.main.farClipPlane
+            mainCamera.farClipPlane
         );
         Vector3 screenMousePosNear= new Vector3(
             Input.mousePosition.x,
             Input.mousePosition.y,
-            Camera.main.nearClipPlane
+            mainCamera.nearClipPlane
         );
 
-        Vector3 worldMousePositionFar= Camera.main.ScreenToWorldPoint(screenMousePosFar);
-        Vector3 worldMousePositionNear= Camera.main.ScreenToWorldPoint(screenMousePosNear);
+        
+
+        Vector3 worldMousePositionFar= mainCamera.ScreenToWorldPoint(screenMousePosFar);
+        Vector3 worldMousePositionNear= mainCamera.ScreenToWorldPoint(screenMousePosNear);
         RaycastHit hit;
+        //infoText.text=worldMousePositionNear.ToString();
         Physics.Raycast(worldMousePositionNear,worldMousePositionFar-worldMousePositionNear,out hit);
 
         //Camera.main.transform.LookAt(worldMousePositionFar);
