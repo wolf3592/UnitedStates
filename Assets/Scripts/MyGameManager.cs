@@ -8,8 +8,9 @@ using UnityEngine.UI;
 
 public class MyGameManager : MonoBehaviour
 {
-    List<string> puzzles=new List<string>() {"Africa","Asia","Australia","Canada","Central America","Europe","Middle East","South America","United_States"};
+    List<string> puzzles=new List<string>() {"Africa","Asia","Australia","Canada","Central America","England","Europe","Middle East","South America","United_States"};
     public static int CorrectPieces=0;
+    public static Vector3 specialUKOffset=Vector3.zero;
     // GameObject africaParent;
     // GameObject africaHole;
     // GameObject usaParent;
@@ -17,7 +18,7 @@ public class MyGameManager : MonoBehaviour
     // GameObject ukParent;
     // GameObject ukHole;
 
-    Camera mainCamera;
+    //Camera mainCamera;
 
     Button startButton;
     Button resetButton;
@@ -62,52 +63,16 @@ public class MyGameManager : MonoBehaviour
     public Rect rectVisible;
     public Rect rectPuzzleGround;
 
-    int puzzleStartCount=0;
-    private void EnablePuzzle()
-    {
-        // africaHole.SetActive(goCurrentPuzzle==africaParent);
-        // africaParent.SetActive(goCurrentPuzzle==africaParent);
-        // usaHole.SetActive(goCurrentPuzzle==usaParent);
-        // usaParent.SetActive(goCurrentPuzzle==usaParent);
-        // ukHole.SetActive(goCurrentPuzzle==ukParent);
-        // ukParent.SetActive(goCurrentPuzzle==ukParent);
-        //-8.4, 18.58
-    }
-
-    // public void AfricaOnClick()
-    // {
-    //     goSelectedPuzzle=africaParent;
-    //     EnablePuzzle();
-    //     SetPuzzleButtonState();
-    // }
-    // public void UsaOnClick()
-    // {
-    //     goSelectedPuzzle=usaParent;
-    //     EnablePuzzle();
-    //     SetPuzzleButtonState();
-    // }
-    // public void UKOnClick()
-    // {
-    //     goSelectedPuzzle=ukParent;
-    //     EnablePuzzle();
-    //     SetPuzzleButtonState();
-    // }
-
-    public void TestOnClick()
-    {
-        //get United_States
-        //FocusCamera(GetChildBounds(GameObject.Find("United_States")));
-
+    GameObject ukp;
+    GameObject uk;
+    //UK counties start about 11.36, 15,72 - for some reason
+    //had to move first from 10.60 to 11.46
+    //and 16.13 to 15.64
+    Vector3 ukOffsetPosition=new Vector3 (12.13f,0,15.24f);
     
-        //get extent
-        //set camera above the centre of the mesh
-        //zoom so that the mesh is centre bottom
-    }
 
-    public void Test2OnClick()
-    {
-        //FocusCamera(GetChildBounds(GameObject.Find("Middle_East")));
-    }
+    //int puzzleStartCount=0;
+
 
     public void OnValueChanged(int target)
     {
@@ -215,6 +180,9 @@ public class MyGameManager : MonoBehaviour
         goPuzzle=GameObject.Find("puzzleCurrent");
         goPuzzleHole=GameObject.Find("holeCurrent");
 
+        ukp=GameObject.Find("United_Kingdom_Parent");
+        uk=GameObject.Find("United_Kingdom");
+
         //worldMaterial = (Material)Resources.Load("world", typeof(Material));
 
         //UsaOnClick();
@@ -228,6 +196,14 @@ public class MyGameManager : MonoBehaviour
     {
         string selection=puzzles[index].Replace(" ","_");
 
+        ukp.SetActive(selection=="England");
+        uk.SetActive(selection!="England");
+        specialUKOffset=Vector3.zero;
+        if (selection=="England") specialUKOffset=ukOffsetPosition;
+
+        //UK counties start about 11.36, 15,72 - for some reason
+        //had to move first from 10.60 to 11.46
+        //and 16.13 to 15.64
 
         currentPuzzleNumber=index;
         GameObject go = GameObject.Find(selection);
@@ -295,6 +271,7 @@ public class MyGameManager : MonoBehaviour
         PrepareDrag(goPuzzle);
         //CopyRegionToHole(goSelectedPuzzle);
         HighlightGO(goPuzzle);
+        hoverText.text="";
         FadeOutWorld();
         StartGameUI();
         ZoomOut();
@@ -447,7 +424,7 @@ public class MyGameManager : MonoBehaviour
                 //move CurrentPosition down to iMinZ
                 currentPosition=new Vector3(startPosition.x,startPosition.y,iMinZ);
             }
-            Vector3 v = currentPosition+mbSize-mbCenter;
+            Vector3 v = currentPosition+mbSize-mbCenter+specialUKOffset;
             print(meshToMove.gameObject.name+" position:"+v+" size: "+meshBounds.size);
             iMinZ=Mathf.Min(iMinZ,currentPosition.z-meshBounds.size.z);
             //Vector3 v2=new Vector3(rectPuzzleGround.x,0,rectPuzzleGround.y+rectPuzzleGround.height); //align to left edge
@@ -581,6 +558,7 @@ public class MyGameManager : MonoBehaviour
         nextButton.gameObject.SetActive(false);
         textCorrect.text="# to go";
         textTimer.text="0.0";
+        
     }
 
     public void QuitGame()

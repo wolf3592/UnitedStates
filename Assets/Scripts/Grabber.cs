@@ -88,7 +88,7 @@ public class Grabber : MonoBehaviour
                 selectedObject.transform.position=new Vector3(worldPosition.x,puzzleLayer,worldPosition.z)-selectedObjectOffset;
                 if (DistanceFromTarget(selectedObject.transform.position)<0.25f)
                 {
-                    selectedObject.transform.position=new Vector3(correctPosition.x,puzzleLayer,correctPosition.z);
+                    selectedObject.transform.position=new Vector3(correctPosition.x,puzzleLayer,correctPosition.z)+MyGameManager.specialUKOffset;
                     selectedObject.tag="correct";
                     selectedObject.GetComponent<MeshRenderer>().material.color=Color.white;
                     MyGameManager.CorrectPieces--;
@@ -114,7 +114,7 @@ public class Grabber : MonoBehaviour
 
     float DistanceFromTarget(Vector3 position)
     {
-        float distance=(position-correctPosition).magnitude;
+        float distance=(position-correctPosition-MyGameManager.specialUKOffset).magnitude;
         print (distance);
         return distance;
     }
